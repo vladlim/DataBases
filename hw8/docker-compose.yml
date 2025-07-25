@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+    postgres:
+        image: postgres:latest
+        environment:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: jobs_db
+        ports:
+          - "5432:5432"
+        volumes:
+          - ./data:/var/lib/postgresql/data
+          - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+          - jobs_network
+
+networks:
+  jobs_network:
+    driver: bridge

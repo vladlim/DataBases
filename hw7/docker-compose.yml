@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: olympics_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./1_init.sql:/docker-entrypoint-initdb.d/1_init.sql
+      - ./2_countries.sql:/docker-entrypoint-initdb.d/2_countries.sql
+      - ./3_olympics.sql:/docker-entrypoint-initdb.d/3_olympics.sql
+      - ./events.sql:/docker-entrypoint-initdb.d/events.sql
+      - ./players.sql:/docker-entrypoint-initdb.d/players.sql
+      - ./results.sql:/docker-entrypoint-initdb.d/results.sql
+    networks:
+      - olympics_network
+
+networks:
+  olympics_network:
+    driver: bridge

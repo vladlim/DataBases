@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres1:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: librarydb
+      POSTGRES_USER: user1
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+      - ./LibraryDiagram.sql:/docker-entrypoint-initdb.d/LibraryDiagram.sql
+    ports:
+      - "5433:5433"
+
+  postgres2:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: traindb
+      POSTGRES_USER: user2
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
+      - ./TrainDiagram.sql:/docker-entrypoint-initdb.d/TrainDiagram.sql
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata1:
+  pgdata2:
